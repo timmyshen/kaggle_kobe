@@ -1,0 +1,98 @@
+---
+title: "Kobe_Exploration"
+author: "Benqing Shen"
+date: "April 18, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+## Kobe
+
+```{r required libraries, echo=FALSE}
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+```
+
+
+```{r read kobe_data, echo=FALSE}
+kobe_data <- read.csv('./data.csv') %>% tbl_df() %>% 
+  mutate(shot_made_flag = as.factor(shot_made_flag),
+         team_id = as.factor(team_id)) %>% 
+  select(-team_id, -team_name) %>% 
+  filter(!is.na(shot_made_flag))
+```
+
+
+```{r}
+ggplot(kobe_data, aes(action_type)) +
+  geom_bar() +
+  theme_fivethirtyeight() +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+
+```{r}
+ggplot(kobe_data, aes(combined_shot_type)) +
+  geom_bar() +
+  theme_fivethirtyeight() +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+```{r}
+ggplot(kobe_data, aes(shot_made_flag)) +
+  geom_bar() +
+  theme_fivethirtyeight() +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+```{r}
+ggplot(kobe_data, aes(shot_zone_area, fill = shot_made_flag)) +
+  geom_bar() +
+  theme_fivethirtyeight() +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+```{r}
+ggplot(kobe_data, aes(shot_zone_basic)) +
+  geom_bar() +
+  theme_fivethirtyeight() +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+```{r}
+ggplot(kobe_data, aes(shot_zone_range)) +
+  geom_bar() +
+  theme_fivethirtyeight() +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+```{r}
+
+```
+
